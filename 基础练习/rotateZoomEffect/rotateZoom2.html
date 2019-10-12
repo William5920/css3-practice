@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>旋转缩放动画特效二</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			div {
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+				background: #333;
+				margin: 0 auto;
+				font-size: 50px;
+				color: #fff;
+				text-align: center;
+				line-height: 300px;
+				position: relative;
+			}
+
+			p {
+				width: 260px;
+				height: 260px;
+				border-radius: 50%;
+				background: url(bg.jpeg);
+				position: absolute;
+				top: 0;
+				border: 20px solid rgba(255,255,255,.5);
+				background-origin: border-box;
+				transform-origin: left center;
+				transition: 1s;
+			}
+
+			div:hover p {
+				transform: rotateY(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="">
+			文字
+			<p></p>
+		</div>
+	</body>
+</html>

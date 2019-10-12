@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>继承与多态-拖拽</title>
+		<style type="text/css">
+			.box {
+				width: 100px;
+				height: 100px;
+				
+				position: absolute;
+			}
+
+			#div1 {
+				background: red;
+				z-index: 10;
+			}
+
+			#div2 {
+				background: yellow;
+				z-index: 9;
+			}
+
+			#div3 {
+				background: blue;
+				z-index: 8;
+			}
+
+			#div4 {
+				background: green;
+				z-index: 7;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="div1"></div>
+		<div class="box" id="div2"></div>
+		<div class="box" id="div3"></div>
+		<div class="box" id="div4"></div>
+		
+		<script>
+			/*
+			//拖拽的构造函数
+			function Drag(id){
+				this.disX = 0;
+				this.disY = 0;
+				this.elem = document.getElementById(id);
+			}
+
+			//初始化拖拽对象
+			Drag.prototype.init = function(){
+				var This = this;
+
+				this.elem.onmousedown = function(ev){
+					This.fnDown(ev);
+					document.onmousemove = function(ev){
+						This.fnMove(ev);
+					};
+					document.onmouseup = function(){
+						This.fnUp();
+					};
+					return false;
+				};
+
+
+			};
+
+			Drag.prototype.fnDown = function(ev){
+				this.disX = ev.pageX - this.elem.offsetLeft;
+				this.disY = ev.pageY - this.elem.offsetTop;
+			};
+
+			Drag.prototype.fnMove = function(ev){
+				this.elem.style.left = ev.pageX - this.disX + 'px';
+				this.elem.style.top = ev.pageY - this.disY + 'px';
+			};
+
+			Drag.prototype.fnUp = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+			};
+
+
+			//继承
+			function ChildDrag(id){
+				Drag.call(this,id);
+			};
+
+			extend(ChildDrag,Drag);
+
+			//拷贝继承
+			function extend(subs,sups){
+				for(var attr in sups.prototype){
+					subs.prototype[attr] = sups.prototype[attr];
+				}
+			}
+
+			//多态，重写fnMove函数，限制移动范围
+			ChildDrag.prototype.fnMove = function(ev){
+				var L = ev.pageX - this.disX;
+				var T = ev.pageY - this.disY;
+				if(L < 0){
+					L = 0;
+				} else if(L > window.innerWidth - this.elem.offsetWidth){
+					L = window.innerWidth - this.elem.offsetWidth;
+				}
+				if(T < 0){
+					T = 0;
+				} else if(T > window.innerHeight - this.elem.offsetHeight){
+					L = window.innerHeight - this.elem.offsetHeight;
+				}
+
+				this.elem.style.left = L + 'px';
+				this.elem.style.top = T + 'px';
+			};
+
+			var d1 = new Drag('div1');
+			d1.init();
+			var d2 = new ChildDrag('div2');
+			d2.init();
+			*/
+
+			//通过配置对象的方法实现多态
+			function Drag(opts){
+				this.disX = 0;
+				this.disY = 0;
+				this.axis = opts.axis || false;
+				this.range = opts.range || false;
+				this.elem = document.getElementById(opts.id);
+			}
+
+			//初始化拖拽对象
+			Drag.prototype.init = function(){
+				var This = this;
+
+				this.elem.onmousedown = function(ev){
+					This.fnDown(ev);
+					document.onmousemove = function(ev){
+						This.fnMove(ev);
+					};
+					document.onmouseup = function(){
+						This.fnUp();
+					};
+					return false;
+				};
+
+
+			};
+
+			Drag.prototype.fnDown = function(ev){
+				this.disX = ev.pageX - this.elem.offsetLeft;
+				this.disY = ev.pageY - this.elem.offsetTop;
+			};
+
+			Drag.prototype.fnMove = function(ev){
+				var L = ev.pageX - this.disX;
+				var T = ev.pageY - this.disY;
+
+				if(this.range){
+					if(L < 0){
+						L = 0;
+					} else if(L > window.innerWidth - this.elem.offsetWidth){
+						L = window.innerWidth - this.elem.offsetWidth;
+					}
+					if(T < 0){
+						T = 0;
+					} else if(T > window.innerHeight - this.elem.offsetHeight){
+						L = window.innerHeight - this.elem.offsetHeight;
+					}
+				}
+
+				if(this.axis == 'x'){
+					this.elem.style.left = L + 'px';
+				} else if(this.axis == 'y'){
+					this.elem.style.top = T + 'px';
+				} else {
+					this.elem.style.left = L + 'px';
+					this.elem.style.top = T + 'px';
+				}
+				
+			};
+
+			Drag.prototype.fnUp = function(){
+				document.onmousemove = null;
+				document.onmouseup = null;
+			};
+
+
+			var d1 = new Drag({
+				id : 'div1'
+			});
+			d1.init();
+
+			var d2 = new Drag({
+				id : 'div2',
+				range : true
+			});
+			d2.init();
+
+			var d3 = new Drag({
+				id : 'div3',
+				range : true,
+				axis : 'x'
+			});
+			d3.init();
+
+			var d4 = new Drag({
+				id : 'div4',
+				axis : 'y'
+			});
+			d4.init();
+
+
+		</script>
+	</body>
+</html>

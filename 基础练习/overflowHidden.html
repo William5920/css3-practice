@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>css利用溢出裁切实现只有中间显示边框的效果下载</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			div {
+				width: 190px;
+				height: 500px;
+				background: #f00;
+				margin: 50px auto;
+			}
+
+			div ul {
+				overflow: hidden;
+			}
+
+			div ul li {
+				list-style: none;
+				height: 40px;
+				border-bottom: 1px dashed #000;
+				width: 192px;
+			}
+
+			div ul li a {
+				display: block;
+				width: 95px;
+				float: left;
+				color: #fff;
+				text-decoration: none;
+				border-right: 1px dashed #ccc;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li><a href="#">耐克</a><a href="#">李宁</a></li>
+				<li><a href="#">耐克</a><a href="#">李宁</a></li>
+				<li><a href="#">耐克</a><a href="#">李宁</a></li>
+				<li><a href="#">耐克</a><a href="#">李宁</a></li>
+				<li><a href="#">耐克</a><a href="#">李宁</a></li>
+			</ul>
+		</div>
+	</body>
+</html>

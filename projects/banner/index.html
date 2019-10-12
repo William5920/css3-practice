@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>轮播图</title>
+		<style type="text/css">
+
+			/*清楚默认样式*/
+			html,body,div,ul,li,img {
+				padding: 0;
+				margin: 0;
+				
+			}
+
+			li {
+				list-style: none;
+			}
+
+			a {
+				color: black;
+				text-decoration: none;
+			}
+
+			#box {
+				width: 400px;
+				height: 400px;
+				margin: 0 auto;
+				border: 1px solid orange;
+			}
+
+			#top {
+				position: relative;
+				width: 400px;
+				height: 400px;
+				verflow: hidden;
+			}
+
+			#top div {
+				position: absolute;
+				width: 200px;
+				height: 400px;
+				z-index: 1000;
+			}
+
+			#top #left {
+				top: 0;
+				left: 0;
+
+			}
+
+			#top #right {
+				top: 0;
+				right: 0;
+			}
+
+			#top #btn_l {
+				width: 50px;
+				height: 50px;
+				background: url(images/leftBtn.png) no-repeat;
+				background-size: 50px 50px;
+				position: absolute;
+				left: 0;
+				top: 175px;
+				z-index: 1001;
+				opacity: 0;
+				filter: alpha(opacity = 100);
+			}
+
+			#top #btn_r {
+				width: 50px;
+				height: 50px;
+				background: url(images/rightBtn.png) no-repeat;
+				background-size: 50px 50px;
+				position: absolute;
+				right: 0;
+				top: 175px;
+				z-index: 1001;
+				opacity: 0;
+				filter: alpha(opacity = 100);
+			}
+
+			#top img {
+				width: 400px;
+				height: 400px;
+			}
+
+			#top li {
+				position: absolute;
+			}
+
+			#bottom {
+				position: relative;
+				margin-top: 10px;
+				overflow: hidden;
+			}
+
+			#bottom ul {
+				position: relative;
+				width: 400px;
+			}
+
+			#bottom img {
+				width: 80px;
+				height: 80px;
+				opacity: 1;
+			}
+
+			#bottom li {
+				float: left;
+			}
+		</style>
+
+		<script type="text/javascript" src="sport.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+
+				function $(id){
+					return document.getElementById(id);
+				}
+
+				//获取页面元素
+				//大盒子
+				var oBox = $("box");
+				//左区域
+				var left = $("left");
+				//右区域
+				var right = $("right");
+				//左按钮
+				var leftBtn = $("btn_l");
+				//右按钮
+				var rightBtn = $("btn_r");
+				//获取大图
+				var bigPic = $("top").getElementsByTagName("li");
+				//获取小图
+				var smallPic = $("bottom").getElementsByTagName("li");
+				//获取小图ul
+				var smallUl = $("small_ul");
+				
+
+				//记录层级
+				var zIndex = 1;
+				//记录图片的下标
+				var nowPic = 0;
+				//初始化透明度
+				now();
+
+
+				//显示隐藏左右按钮
+				leftBtn.onmouseover = left.onmouseover = function(){
+					sport(leftBtn,{opacity : 100});
+				}
+
+				leftBtn.onmouseout = left.onmouseout = function(){
+					sport(leftBtn,{opacity : 0});
+				}
+
+				rightBtn.onmouseover = right.onmouseover = function(){
+					sport(rightBtn,{opacity : 100});
+				}
+
+				rightBtn.onmouseout = right.onmouseout = function(){
+					sport(rightBtn,{opacity : 0});
+				}
+
+				//点击左右按钮切换图片
+				leftBtn.onclick = function(){
+					nowPic--;
+					if(nowPic < 0) {
+						nowPic = smallPic.length - 1;
+					}
+					now();
+				}
+
+				rightBtn.onclick = function(){
+					nowPic++;
+					if(nowPic > smallPic.length - 1) {
+						nowPic = 0;
+					}
+					now();
+				}
+
+				//小图添加事件
+				for(var i = 0; i < smallPic.length; i++) {
+					smallPic[i].index = i;
+					//移入
+					smallPic[i].onmouseover = function(){
+						sport(this,{opacity : 100});
+					}
+					//移出
+					smallPic[i].onmouseout = function(){
+						if(this.index != nowPic) {
+							sport(this,{opacity : 30});
+						}
+						
+					}
+					//点击
+					smallPic[i].onclick = function(){
+						nowPic = this.index;
+						now();
+					}
+				}
+
+				//当前状态
+				function now(){
+					//大图
+					bigPic[nowPic].style["z-index"] = ++zIndex;
+					
+					//设置缩略图的初始透明度
+					for(var i = 0; i < smallPic.length; i++) {
+						sport(smallPic[i],{opacity : 50});
+					}
+					sport(smallPic[nowPic],{opacity : 100});
+				}
+
+				var timer = null;
+
+				function auto(){
+					timer = setInterval(function(){
+						nowPic++;
+						if(nowPic > smallPic.length - 1) {
+							nowPic = 0;
+						}
+						now();
+					},1000);
+				}
+
+				auto();
+
+				oBox.onmouseenter = function(){
+					clearInterval(timer);
+				}
+
+				oBox.onmouseleave = function(){
+					auto();
+				}
+
+			}
+		</script>
+
+	</head>
+	<body>
+		<div id="box">
+			<ul id="top">
+				<div id="left"></div>
+				<div id="right"></div>
+				<a href="javascript:;" id="btn_l"></a>
+				<a href="javascript:;" id="btn_r"></a>
+				<li style="z-index: 1;"><img src="images/img1.jpg"></li>
+				<li><img src="images/img2.jpg"></li>
+				<li><img src="images/img3.jpg"></li>
+				<li><img src="images/img4.jpg"></li>
+				<li><img src="images/img5.jpg"></li>
+			</ul>
+			<div id="bottom">
+				<ul id="small_ul">
+					<li><img src="images/img1.jpg"></li>
+					<li><img src="images/img2.jpg"></li>
+					<li><img src="images/img3.jpg"></li>
+					<li><img src="images/img4.jpg"></li>
+					<li><img src="images/img5.jpg"></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

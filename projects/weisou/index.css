@@ -1,0 +1,288 @@
+/*----------------------reset------------------*/
+body,h1,h2,h3,h4,h5,h6,p,a,img,input,ul,li,ol,dl,dt,dd,figure,figcaption {
+	padding: 0;
+	margin: 0;
+}
+
+ul,ol {
+	list-style: none;
+}
+
+img {
+	display: block;
+	border: 0;
+}
+
+input {
+	outline: none;
+}
+
+body {
+	font-size: 14px;
+	font-family: "微软雅黑";
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+header,nav,section,footer,aside,article,main,figure,figcaption {
+	display: block;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/*------------------------header------------------*/
+header {
+	height: 54px;
+	display: flex;
+	align-items: center;
+	padding: 13px 7px;
+	border-bottom: 1px solid #dedcdc;
+	box-shadow: 0 5px 5px #f8f9f4;
+}
+
+header img {
+	width: 118px;
+	height: 32px;
+	flex: 0;
+	margin-right: 5px;
+	
+}
+
+header input {
+	height: 26px;
+	border: 1px solid #dedcdc;
+	border-radius: 3px;
+	flex: 1;
+	color: #a5a4a4;
+	padding-left: 9px;
+	padding-right: 15px;
+	background: url(img/search.png) no-repeat 98% center;
+	background-size: 18px 18px;
+}
+
+/*----------------------------nav--------------------*/
+
+.content {
+	margin-left: 7px;
+	margin-right: 7px;
+}
+
+.title {
+	color: #878686;
+	padding-top: 19px;
+	position: relative;
+}
+
+.title p {
+	padding-left: 13px;
+}
+
+.title #more {
+	font-size: 10px;
+	color: #cccccc;
+	position: absolute;
+	right: 14px;
+}
+
+.title img {
+	height: 6px;
+	position: absolute;
+	left: 0;
+	bottom: 1px;
+}
+
+.title::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	background: #299f2f;
+	width: 100%;
+	height: 1px;
+	transform: scaleY(0.5);
+	transform-origin: 0 0;
+}
+
+nav ul {
+	display: flex;
+	justify-content: space-around;
+	margin-right: -23px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+nav ul li {
+	color: black;
+	width: 40px;
+	height: 25px;
+	border-radius: 3px;
+	background: #ecedee;
+	text-align: center;
+	margin-top: 12px;
+	margin-right: 23px;
+}
+
+nav ul li a {
+	text-align: center;
+	line-height: 25px;
+}
+
+nav ul .active {
+	background: #2ea234;
+}
+
+nav ul .active a {
+	color: #fff;
+}
+
+/*---------------------newjoin-----------------*/
+
+#newjoin li img {
+	width: 51px;
+}
+
+#newjoin ul {
+	display: flex;
+	justify-content: space-around;
+}
+
+#newjoin ul li {
+	margin-top: 13px;
+}
+
+/*-----------------------shops------------------*/
+
+#shops li {
+	display: flex;
+	height: 94px;
+	padding: 5px;
+	margin-top: 7px;
+}
+
+#shops li .logo {
+	width: 61px;
+	height: 61px;
+	background: url(img/shops.png) no-repeat;
+	background-position: -12px -9px;
+	background-size: 320px auto;
+}
+
+
+#shops li .info {
+	flex: 1;
+	padding-left: 9px;
+	margin-left: 5px;
+	border-left: 1px dashed #dddddd;
+	
+}
+
+#shops .info .intro {
+	font-size: 10px;
+	color: #999999;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	position: relative;
+	height: 36px;
+	padding-left: 2px;
+	
+}
+
+#shops .intro span {
+	display: block;
+	border-width: 7px 7px 7px 0;
+	border-style: solid;
+	border-color: transparent #cccccc transparent transparent;
+	position: absolute;
+	left: -7px;
+	top: 5px;
+}
+
+#shops .intro em {
+	display: block;
+	border-width: 7px 7px 7px 0;
+	border-style: solid;
+	border-color: transparent #fbfbfb transparent transparent;
+	position: absolute;
+	left: 2px;
+	top: -7px;
+	
+}
+
+#shops .info .btn {
+	height: 23px;
+	width: 150px;
+	background: url(img/shops.png) no-repeat;
+	background-position: -96px -70px;
+	background-size: 320px auto;
+	margin-top: 3px;
+	margin-left: 12px;
+}
+
+#shops li:nth-of-type(2n+1) {
+	background: #fbfbfb;
+}
+
+#shops li:nth-of-type(2n) {
+	border: 1px dashed #dddddd;
+}
+
+#shops li:nth-of-type(2) .logo {
+	background-position: -12px -108px;
+}
+
+#shops li:nth-of-type(3) .logo {
+	background-position: -11px -208px;
+}
+
+#shops li:nth-of-type(4) .logo {
+	background-position: -11px -307px;
+}
+
+#shops li:nth-of-type(5) .logo {
+	background-position: -12px -409px;
+}
+
+#shops li:nth-of-type(6) .logo {
+	background-position: -12px -506px;
+}
+
+#shops li:last-child {
+	margin-bottom: 42px;
+}
+
+/*-------------------------bar-------------------*/
+
+#bar {
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	height: 29px;
+	background: #549b58;
+	color: #fff;
+}
+
+#bar ul {
+	display: flex;
+}
+
+#bar ul li {
+	flex: 1;
+	text-align: center;
+	line-height: 29px;
+}
+
+#bar ul li:nth-child(2) {
+	border-left: 1px solid rgba(255,255,255,.5);
+	border-right: 1px solid rgba(255,255,255,.5);
+}
+
+
+
+
+
+
+

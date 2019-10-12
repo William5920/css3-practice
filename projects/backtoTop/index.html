@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>回到顶部效果</title>
+		<style type="text/css">
+			div {
+				width: 100%;
+				height: 8000px;
+				background: orange;
+			}
+
+			a {
+				width: 50px;
+				height: 50px;
+				background: green;
+				position: fixed;
+				right: 20px;
+				bottom: 20px;
+				display: none;
+				text-decoration: none;
+				color: #fff;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var oBtn = document.getElementById("button");
+				var timer = null;
+				var speed = 0;
+				var flag = true;
+
+
+				window.onscroll = function(){
+					//1.按钮的显示与隐藏（display）
+					var scroll = document.documentElement.scrollTop || document.body.scrollTop;//获取scrollTop的值
+
+					if(scroll >= 600) {
+						oBtn.style.display = "block";
+					} else {
+						oBtn.style.display = "none";
+					}
+
+					//通过鼠标滚轮自由控制滚动条（停止定时器）
+					if(!flag) {
+						clearInterval(timer);
+					}
+					flag = false;//频率：定时器规定的时间内可以两次或多次触发onscroll事件，flag值会保存下来传给上面的if语句。通过频率差改变flag的值
+				};
+
+				//点击“回到顶部”按钮
+				oBtn.onclick = function(){
+
+					timer = setInterval(function(){
+						var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;//获取scrollTop的值
+
+						speed = scrollTop / 5;//speed从大到小
+						console.log(scrollTop);
+						document.documentElement.scrollTop = document.body.scrollTop = scrollTop - speed;//设置scrollTop值缓冲的运动状态
+
+						//如果scrollTop值为0时关闭定时器
+						if(scrollTop == 0) {
+							clearInterval(timer);
+						}
+
+						flag = true;
+
+					},20);
+
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div></div>
+		<a href="javascript:;" id="button">回到顶部</a>
+	</body>
+</html>

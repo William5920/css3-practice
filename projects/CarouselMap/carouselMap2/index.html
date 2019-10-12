@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>京东首页轮播图</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#box {
+				width: 590px;
+				height: 470px;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			.btn {
+				width: 50px;
+				height: 80px;
+				background: rgba(0,0,0,0.2);
+				font-size: 30px;
+				color: #fff;
+				text-align: center;
+				line-height: 80px;
+				position: absolute;
+				top: 195px;
+				display: none;
+			}
+
+			#left {
+				left: 0px;
+			}
+
+			#right {
+				right: 0px;
+			}
+
+			#list {
+				position: absolute;
+				left: 180px;
+				bottom: 20px;
+				list-style: none;
+				color: white;
+			}
+
+			#list li {
+				float: left;
+				width: 20px;
+				height: 20px;
+				background: #EAEAE3;
+				text-align: center;
+				line-height: 20px;
+				border-radius: 50%;
+				margin-left: 10px;
+			}
+
+			#list li#active {
+				background: #7AE2B7;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+
+				function $(id){
+					return document.getElementById(id);
+				}
+
+				var jsBox = $("box");
+				var jsPic = $("pic");
+				var jsLeft = $("left");
+				var jsRight = $("right");
+				var liArr = document.getElementsByTagName("li");
+
+				//设置第一个li的背景色为红色
+				//liArr[0].style.backgroundColor = "#7AE2B7";
+
+				//启动一个定时器去更换jsPic中的src属性
+				var currentPage = 1;
+
+				var timer = setInterval(loop,1000);
+				function loop(){
+					currentPage++;
+					changePic();
+				}
+
+				function changePic(){
+					if(currentPage > 8){
+						currentPage = 1;
+					} else if(currentPage < 1){
+						currentPage = 8;
+					}
+					jsPic.src = "images/pic" + currentPage + ".jpg";
+
+					//改变小圆点的背景
+					//首先将每个小圆点的id清空，将当前图片的对应的小圆点id设为active
+					for(var i = 0; i < liArr.length; i++){
+						liArr[i].id = '';
+					}
+
+					liArr[currentPage - 1].id = "active";
+
+				}
+
+				//鼠标进入box，停止轮播，显示左右按钮
+				jsBox.addEventListener("mouseover",enter);
+
+				function enter(){
+					clearInterval(timer);
+					jsLeft.style.display = "block";
+					jsRight.style.display = "block";
+				}
+
+				//鼠标移出box，重启轮播，隐藏左右按钮
+				jsBox.addEventListener("mouseout",out);
+				function out(){
+					timer = setInterval(loop,1000);
+					jsLeft.style.display = "none";
+					jsRight.style.display = "none";
+				}
+
+				//点击左右按钮
+				//鼠标进入，加深背景颜色
+				jsLeft.addEventListener("mouseover",deepen);
+				jsRight.addEventListener("mouseover",deepen);
+				function deepen(){
+					this.style.backgroundColor = "rgba(0,0,0,0.6)"
+				}
+
+				//鼠标移出，减浅背景颜色
+				jsLeft.addEventListener("mouseout",fade);
+				jsRight.addEventListener("mouseout",fade);
+				function fade(){
+					this.style.backgroundColor = "rgba(0,0,0,0.2)"
+				}
+
+				//点击右键，图片右移
+				jsLeft.addEventListener("click",function(){
+					currentPage--;
+					changePic();
+				});
+
+				//点击左键，图片左移
+				jsRight.addEventListener("click",function(){
+					currentPage++;
+					changePic();
+				});
+
+				//进入小圆点
+				for(var i = 0; i < liArr.length; i++){
+					liArr[i].index = i + 1;
+					liArr[i].addEventListener("mouseover",function(){
+						currentPage = parseInt(this.index);
+						changePic();
+					})
+				}
+
+
+
+
+
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<img src="images/pic1.jpg" id="pic">
+			<!--<img src="images/pic2.jpg">
+			<img src="images/pic3.jpg">
+			<img src="images/pic4.jpg">
+			<img src="images/pic5.jpg">
+			<img src="images/pic6.jpg">
+			<img src="images/pic7.jpg">
+			<img src="images/pic8.jpg">-->
+			<ul id="list">
+				<li id="active">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+			</ul>
+			<div id="left" class="btn"><</div>
+			<div id="right" class="btn">></div>
+		</div>
+	</body>
+</html>

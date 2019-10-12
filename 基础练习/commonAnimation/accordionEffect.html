@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>CSS3实现垂直手风琴效果</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			.listbox {
+				width: 500px;
+				
+				margin: 50px auto;
+			}
+
+			.listbox .list a {
+				display: block;
+				height: 35px;
+				background: linear-gradient(#cecece,#8f8f8f);
+				border-radius: 5px;
+				padding-left: 12px;
+				text-decoration: none;
+				color: #424242;
+				line-height: 35px;
+			}
+
+			.listbox .list p {
+				height: 0px;
+				overflow: auto;
+				padding-left: 10px;
+				margin: 5px 0;
+				transition: 0.5s linear;
+			}
+
+			.listbox .list {
+				position: relative;
+			}
+
+			.listbox .list span {
+				width: 0;
+				height: 0;
+				border: 5px solid transparent;
+				border-top: 5px solid white;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+			}
+
+			.listbox .list:target p {
+				height: 100px;
+			}
+
+			.listbox .list a:hover,
+			.listbox .list:target a {
+				background: linear-gradient(#6bb2ff,#2288dd);
+				color: #fff;
+			}
+
+			.listbox .list:target span {
+				border-top: 5px solid transparent;
+				border-left: 5px solid white;
+				right: 10px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="listbox">
+			<div class="list" id="list1">
+				<a href="#list1">Brand</a>
+				<span></span>
+				<p>When tomorrow turns in today, yesterday, and someday that no more important in your memory, we suddenly realize that we r pushed forward by time. This is not a train in still in which you may feel forward when another train goes by. It is the truth that we've all grown up. And we become different.I don't want to be someone that you're settling for. I don't want to be someone that anyone settles for.</p>
+			</div>
+			<div class="list" id="list2">
+				<a href="#list2">Brand</a>
+				<span></span>
+				<p>When tomorrow turns in today, yesterday, and someday that no more important in your memory, we suddenly realize that we r pushed forward by time. This is not a train in still in which you may feel forward when another train goes by. It is the truth that we've all grown up. And we become different.I don't want to be someone that you're settling for. I don't want to be someone that anyone settles for.</p>
+			</div>
+			<div class="list" id="list3">
+				<a href="#list3">Brand</a>
+				<span></span>
+				<p>When tomorrow turns in today, yesterday, and someday that no more important in your memory, we suddenly realize that we r pushed forward by time. This is not a train in still in which you may feel forward when another train goes by. It is the truth that we've all grown up. And we become different.I don't want to be someone that you're settling for. I don't want to be someone that anyone settles for.</p>
+			</div>
+		</div>
+	</body>
+</html>

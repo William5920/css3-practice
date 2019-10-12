@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>复仇者联盟</title>
+		<style text="text/css">
+			
+			body {
+				background: black;
+			}
+
+			.container {
+				width: 768px;
+				height: 432px;
+				margin: 0 auto;
+				margin-top: 50px;
+				perspective: 20000px;
+				
+			}
+
+			#content {
+				position: relative;
+				transform-style: preserve-3d;
+				transition: all 0.5s;
+			}
+
+			img {
+				width: 768px;
+				height: 432px;
+				position: absolute;
+				transition: all 0.5s;
+				border-radius: 10px;
+				box-shadow: 0 0 5px #fff;
+			}
+
+			#content img.active {
+				border: 5px solid yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="content" id="content">
+				<img src="images/captain.jpg" class="active">
+				<img src="images/ironMan.jpg">
+				<img src="images/hulk.jpg">
+				<img src="images/thor.jpg">
+				<img src="images/blackWidow.jpg">
+				<img src="images/vision.jpg">
+			</div>
+		</div>
+
+		<script>
+			window.onload = function(){
+				//获取页面元素
+				var oContent = document.getElementById("content");
+				var aImage = oContent.children;
+
+				//给每一个image设置一个rotateY值
+				for(var i = 0; i < aImage.length; i++) {
+					aImage[i].style.transform = "rotateY(" + -i*60 + "deg) translateZ(700px)";
+				}
+
+				//点击屏幕，容器转动
+				var index = 0;//无限递增
+				changeImg(index);
+
+				document.onclick = function() {
+					index++;
+					changeImg(index);
+				}
+
+
+				function changeImg(index) {
+					oContent.style.transform = "rotateY(" + index*60 + "deg)";
+
+					//判断前一张图片和后一张图片
+					var now = index % 6;
+					var beforeImg = now  - 1;
+					var afterImg = now + 1;
+
+					if(now == 0) {
+						beforeImg = 5;
+					}
+					if(now == 5) {
+						afterImg = 0;
+					}
+
+					//将前一张图片和后一张图片于当前图片平行
+					aImage[afterImg].style.transform = "rotateY(" + -afterImg*60 + "deg) translateZ(700px) rotateY(60deg)";
+					aImage[beforeImg].style.transform = "rotateY(" + -beforeImg*60 + "deg) translateZ(700px) rotateY(-60deg)";
+					aImage[now].style.transform = "rotateY(" + -now*60 + "deg) translateZ(700px)";
+
+					//改变active类
+					for(var i = 0; i < aImage.length; i++) {
+						aImage[i].className = "";
+					}
+					aImage[now].className = "active";
+				}
+
+
+
+			}
+		</script>
+
+	</body>
+</html>

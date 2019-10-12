@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>css3缩放动画一</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			div {
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+				margin: 0 auto;
+				position: relative;
+			}
+
+			p {
+				width: 260px;
+				height: 260px;
+				background: url(bg.jpeg);
+				border-radius: 50%;
+				border: 20px solid rgba(255,255,255,.5);
+				background-origin: border-box;
+				position: absolute;
+				transition: 1s;
+				left: 0;
+				z-index: 1;
+			}
+
+			h1 {
+				width: 300px;
+				height: 300px;
+				border-radius: 50%;
+				background: #333;
+				color: #fff;
+				font-size: 50px;
+				text-align: center;
+				line-height: 300px;
+				position: absolute;
+				left: -300px;
+				top: 0;
+				transition: 1s;
+				opacity: 0;
+			}
+
+			div:hover p {
+				transform: scale(0.5,0.5);
+				left: 150px;
+			}
+
+			div:hover h1 {
+				left: 0;
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<p></p>
+			<h1>文字</h1>
+		</div>
+	</body>
+</html>
